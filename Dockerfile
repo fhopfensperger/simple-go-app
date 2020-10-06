@@ -2,7 +2,7 @@ FROM golang:alpine AS build
 ADD . /build
 WORKDIR /build
 ARG BUILD_VERSION="v0.0.0"
-RUN go build -o app ./... -ldflags "-X main.version=$BUILD_VERSION"
+RUN go build -ldflags "-X main.version=$BUILD_VERSION" -o app ./...
 
 # 2. stage
 FROM alpine
