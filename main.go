@@ -8,7 +8,7 @@ import (
 
 const port = "8080"
 
-var version = "v0.0.2"
+var version = "v0.0.3"
 
 func main() {
 	http.HandleFunc("/hello", helloWorldHandler)
