@@ -14,7 +14,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-const port = "8080"
+var port = "8080"
 
 var version = "v0.0.2"
 
@@ -30,12 +30,17 @@ func main() {
 		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339})
 	}
 
+	if os.Getenv("PORT") != "" {
+		port = os.Getenv("PORT")
+	}
+
 	log.Info().Msgf("Running on %v architecture, app version %v", runtime.GOARCH, version)
 	log.Info().Msgf("Listening on port %v", port)
 	log.Info().Msg("Listening on /hello /hello-json /metrics /health/live /health/ready")
 	log.Info().Msg(`Set env variable "JSON_LOG=true" to enable json logging`)
 	log.Info().Msgf("env SECRET value: %v", os.Getenv("SECRET"))
-	http.ListenAndServe(":"+port, nil)
+	err := http.ListenAndServe(":"+port, nil)
+	log.Fatal().Err(err).Msg("Could not start server")
 }
 
 func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
