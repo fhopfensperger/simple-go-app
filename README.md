@@ -1,4 +1,4 @@
-[![Docker Repository on Quay](https://quay.io/repository/fhopfensperger/simple-go-app/status "Docker Repository on Quay")](https://quay.io/repository/fhopfensperger/simple-go-app)
+[![Docker Repository on Quay](https://img.shields.io/badge/Quay-repository-sucess "Docker Repository on Quay")](https://quay.io/repository/fhopfensperger/simple-go-app)
 
 # simple-go-app
 
