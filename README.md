@@ -7,7 +7,7 @@ A really simple rest web service written in Go.
 After starting it exposes the following `GET` endpoints:
 - `/hello` -> returns a string response
 - `/hello-json` -> returns a json response
-- `/metrics` -> returns with Prometheus standard metrics
+- `/metrics` -> returns Prometheus standard metrics
 - `/health/live` -> 200 OK
 - `/health/ready` -> 200 OK
 
