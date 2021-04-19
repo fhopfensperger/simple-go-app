@@ -15,13 +15,3 @@ The port ist set to `8080` and can be controlled with an environment variable `P
 
 Json logging can be enabled with the environment variable `JSON_LOG`
 
-## Building
-```bash
-docker buildx build \
-  --platform linux/arm/v7,linux/amd64,linux/arm64 \
-  --tag quay.io/fhopfensperger/simple-go-app \
-  --tag quay.io/fhopfensperger/simple-go-app:v0.1.0 \
-  -f Dockerfile \
-  --build-arg BUILD_VERSION=v0.1.0 \
-  --push .
-```

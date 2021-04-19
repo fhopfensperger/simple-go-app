@@ -1,17 +1,23 @@
-FROM golang:alpine AS build
-ADD . /build
-WORKDIR /build
-ARG BUILD_VERSION="v0.0.0"
-RUN go build -ldflags "-X main.version=$BUILD_VERSION" -o app ./...
+FROM golang:1.16 as goBuilder
 
-# 2. stage
-FROM alpine
+USER root
+WORKDIR /work
+COPY . .
+ARG BUILD_VERSION="0.0.0"
+RUN CGO_ENABLED=0 go build -a -ldflags "-X main.version=$BUILD_VERSION" -o simple-go-app .
 
-RUN apk --no-cache add --update curl \
-    && apk update \
-    && apk upgrade 
+FROM alpine:3.13.5
 
-COPY --from=build /build/app /usr/bin/app
+LABEL maintainer="Florian Hopfensperger <f.hopfensperger@gmail.com>"
+
+RUN apk add --update wget git openssl ca-certificates \
+    && rm /var/cache/apk/* \
+    && adduser -G root -u 1000 -D -S kuser
+
+USER 1000
+WORKDIR /app
+
+COPY --chown=1000:0 --from=goBuilder /work/simple-go-app .
 
 EXPOSE 8080
-CMD [ "/usr/bin/app" ]
+ENTRYPOINT ["./simple-go-app"]
