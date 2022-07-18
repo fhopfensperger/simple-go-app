@@ -10,7 +10,7 @@ FROM alpine:3.15.4
 
 LABEL maintainer="Florian Hopfensperger <f.hopfensperger@gmail.com>"
 
-RUN apk add --update wget git openssl ca-certificates \
+RUN apk add --update wget curl git openssl ca-certificates \
     && rm /var/cache/apk/* \
     && adduser -G root -u 1000 -D -S kuser
 
