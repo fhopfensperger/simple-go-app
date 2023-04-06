@@ -1,5 +1,3 @@
-[![Docker Repository on Quay](https://img.shields.io/badge/Quay-repository-sucess "Docker Repository on Quay")](https://quay.io/repository/fhopfensperger/simple-go-app)
-
 # simple-go-app
 
 A really simple rest web service written in Go.
