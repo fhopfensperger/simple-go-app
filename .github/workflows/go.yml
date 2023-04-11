@@ -35,7 +35,7 @@ jobs:
           go clean
 
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@v4
         if: startsWith(github.ref, 'refs/tags/')
         with:
           version: latest
