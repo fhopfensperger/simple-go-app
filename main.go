@@ -24,6 +24,7 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	http.HandleFunc("/health/live", healthHandler)
 	http.HandleFunc("/health/ready", healthHandler)
+	http.HandleFunc("/", homepageHandler)
 
 	if os.Getenv("JSON_LOG") == "" {
 		// disable json logging
@@ -45,7 +46,13 @@ func main() {
 
 func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
 	log.Info().Msgf("Received incoming web request %v on path %v", r.Method, r.URL.Path)
-	w.Write([]byte("Hello version: " + version))
+	_, _ = w.Write([]byte("Hello version: " + version))
+}
+
+func homepageHandler(w http.ResponseWriter, r *http.Request) {
+	log.Info().Msgf("Received incoming web request %v on path %v", r.Method, r.URL.Path)
+	// list all endpoints
+	_, _ = w.Write([]byte("Listening on /hello /hello-json /metrics /health/live /health/ready"))
 }
 
 func helloWorldJsonHandler(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +66,7 @@ func helloWorldJsonHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Err(err).Msg("")
 	}
-	w.Write(jsonData)
+	_, _ = w.Write(jsonData)
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
